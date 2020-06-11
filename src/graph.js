@@ -24,11 +24,7 @@ const filterNonVisited = (graph, parent, visited) => {
   return children.filter((element) => !visited.has(element));
 };
 
-const bfs = function (pairs, source, target) {
-  const graph = parsePairs(pairs);
-  let queue = getChildren(graph, source);
-  const visited = new Set();
-  updateVisited(visited, queue);
+const validatePath = (graph, target, queue, visited) => {
   while (queue.length !== 0) {
     const currentElement = queue.shift();
     if (currentElement == target) {
@@ -39,6 +35,14 @@ const bfs = function (pairs, source, target) {
     updateVisited(visited, nonVisited);
   }
   return false;
+};
+
+const bfs = function (pairs, source, target) {
+  const graph = parsePairs(pairs);
+  const queue = getChildren(graph, source);
+  const visited = new Set();
+  updateVisited(visited, queue);
+  return validatePath(graph, target, queue, visited);
 };
 
 module.exports = { bfs };
