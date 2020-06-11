@@ -67,4 +67,25 @@ describe('bfs', function () {
   it('should give true if source have immediate target', function () {
     assert.ok(bfs(dummy, 'mm', 'kk'));
   });
+
+  it("should give true if has it's own ref", function () {
+    assert.ok(bfs(dummy, 'jj', 'jj'));
+  });
+
+  it('should not validate if there is no path', function () {
+    assert.ok(!bfs(dummy, 'aa', 'jj'));
+  });
+
+  it('should validate if there is non immediate connection', function () {
+    assert.ok(bfs(dummy, 'hh', 'ii'));
+  });
+
+  it('should not validate if there is no path with source itself', function () {
+    const paris = [
+      [1, 2],
+      [1, 3],
+      [1, 4],
+    ];
+    assert.ok(!bfs(paris, 1, 1));
+  });
 });
